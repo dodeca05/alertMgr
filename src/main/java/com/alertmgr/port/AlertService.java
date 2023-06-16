@@ -1,6 +1,6 @@
 package com.alertmgr.port;
 
-public interface alertService {
+public interface AlertService {
     boolean sendInfo(String msg);
     boolean sendInfoSpecific(String targetID,String msg);
     boolean sendError(String msg);

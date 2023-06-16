@@ -1,8 +1,10 @@
 package com.alertmgr.adapter;
 
-import com.alertmgr.port.alertService;
+import com.alertmgr.port.AlertService;
+import org.springframework.stereotype.Service;
 
-public class WebHookSendServiceImpl implements alertService {
+@Service
+public class WebHookSendServiceImpl implements AlertService {
     @Override
     public boolean sendInfo(String msg) {
         return false;
