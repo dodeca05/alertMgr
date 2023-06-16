@@ -3,7 +3,7 @@ package com.alertmgr.dto;
 import lombok.Getter;
 
 @Getter
-public class alertDto {
+public class AlertRequestDto {
     public int logLevel;
     public String msg;
 }
