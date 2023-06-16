@@ -4,7 +4,7 @@ import com.alertmgr.port.AlertService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WebHookSendServiceImpl implements AlertService {
+public class FrontMonitorService implements AlertService {
     @Override
     public boolean sendInfo(String msg) {
         return false;

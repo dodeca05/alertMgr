@@ -4,7 +4,7 @@ import com.alertmgr.port.AlertService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class STMPserviceImpl implements AlertService {
+public class STMPservice implements AlertService {
     @Override
     public boolean sendInfo(String msg) {
         return false;
