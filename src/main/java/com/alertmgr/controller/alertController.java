@@ -1,6 +1,6 @@
 package com.alertmgr.controller;
 
-import com.alertmgr.component.AdapterFinder;
+import com.alertmgr.service.component.AdapterFinder;
 import com.alertmgr.dto.AlertRequestDto;
 import com.alertmgr.dto.AlertResponseDto;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,8 +18,8 @@ public class alertController {
     final AdapterFinder adapterFinder;
     @GetMapping("/alert")
     @ApiOperation(value = "알림 기능 목록", notes = "현재 사용 가능한 알림 서비스 목록을 조회 합니다.")
-    public List<String> getAlertServiceList() {
-        return adapterFinder.findAlertServiceNames();
+    public Set<String> getAlertServiceList() {
+        return adapterFinder.getAlertServiceNames();
     }
 
     @PostMapping("/alert")

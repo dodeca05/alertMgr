@@ -1,7 +1,6 @@
-package com.alertmgr.component;
+package com.alertmgr.service.component;
 
-import com.alertmgr.port.AlertService;
-import org.springframework.beans.NullValueInNestedPathException;
+import com.alertmgr.service.port.AlertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -32,7 +31,7 @@ public class AdapterFinder {
     }
 
 
-    public Set<String> GetAlertServiceNames() {
+    public Set<String> getAlertServiceNames() {
         return alertServiceMap.keySet();
     }
 }

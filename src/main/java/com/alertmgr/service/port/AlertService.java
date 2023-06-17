@@ -1,4 +1,4 @@
-package com.alertmgr.port;
+package com.alertmgr.service.port;
 
 public interface AlertService {
     boolean sendInfo(String msg);
