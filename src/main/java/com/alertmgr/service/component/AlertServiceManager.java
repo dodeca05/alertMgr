@@ -8,14 +8,11 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class AdapterFinder {
-    private final ApplicationContext applicationContext;
-
+public class AlertServiceManager {
     private Map<String, AlertService> alertServiceMap;
 
     @Autowired
-    public AdapterFinder(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+    public AlertServiceManager(ApplicationContext applicationContext) {
         alertServiceMap=new HashMap<>();
         Map<String, Object> beansOfType = applicationContext.getBeansOfType(Object.class);
         for (Map.Entry<String, Object> entry : beansOfType.entrySet()) {
@@ -29,8 +26,6 @@ public class AdapterFinder {
     public AlertService findAlertServiceByClassName(String serviceName) {
         return alertServiceMap.get(serviceName);
     }
-
-
     public Set<String> getAlertServiceNames() {
         return alertServiceMap.keySet();
     }

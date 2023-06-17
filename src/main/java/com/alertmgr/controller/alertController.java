@@ -1,6 +1,6 @@
 package com.alertmgr.controller;
 
-import com.alertmgr.service.component.AdapterFinder;
+import com.alertmgr.service.component.AlertServiceManager;
 import com.alertmgr.dto.AlertRequestDto;
 import com.alertmgr.dto.AlertResponseDto;
 import io.swagger.annotations.ApiOperation;
@@ -15,7 +15,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class alertController {
 
-    final AdapterFinder adapterFinder;
+    final AlertServiceManager adapterFinder;
     @GetMapping("/alert")
     @ApiOperation(value = "알림 기능 목록", notes = "현재 사용 가능한 알림 서비스 목록을 조회 합니다.")
     public Set<String> getAlertServiceList() {
