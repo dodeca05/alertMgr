@@ -12,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 @Log4j2
 @Service
 public class WebHookSendService implements AlertService {
+
+    private String discordPath="https://example.com";
     @Override
     public boolean sendInfo(String msg) {
         RestTemplate restTemplate = new RestTemplate();
@@ -19,11 +21,10 @@ public class WebHookSendService implements AlertService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        String requestBody = "{\"username\":\"Alert Manager\",\"content\":\""+msg+"\"}";
+        String requestBody = "{ \"username\":\"Alert Manager\",\"embeds\": [{\"title\": \"[INFO]\",\"description\":\""+msg+"\", \"color\": \"1127128\"}]}";
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        String url = "https://example.com";
-        ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(discordPath, requestEntity, String.class);
 
         log.info(response.getBody());
         return false;
@@ -36,6 +37,17 @@ public class WebHookSendService implements AlertService {
 
     @Override
     public boolean sendError(String msg) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String requestBody = "{ \"username\":\"Alert Manager\",\"embeds\": [{\"title\": \"[ERROR]\",\"description\":\""+msg+"\", \"color\": \"16711680\"}]}";
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(discordPath, requestEntity, String.class);
+
+        log.info(response.getBody());
         return false;
     }
 
