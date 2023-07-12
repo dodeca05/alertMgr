@@ -2,6 +2,7 @@ package com.alertmgr.service.adapter;
 
 import com.alertmgr.service.port.AlertService;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,7 +14,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class WebHookSendService implements AlertService {
 
-    private String discordPath="https://example.com";
+    @Value("${webhook.baseurl}")
+    private String discordPath;
     @Override
     public boolean sendInfo(String msg) {
         RestTemplate restTemplate = new RestTemplate();
@@ -27,7 +29,7 @@ public class WebHookSendService implements AlertService {
         ResponseEntity<String> response = restTemplate.postForEntity(discordPath, requestEntity, String.class);
 
         log.info(response.getBody());
-        return false;
+        return true;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class WebHookSendService implements AlertService {
         ResponseEntity<String> response = restTemplate.postForEntity(discordPath, requestEntity, String.class);
 
         log.info(response.getBody());
-        return false;
+        return true;
     }
 
     @Override

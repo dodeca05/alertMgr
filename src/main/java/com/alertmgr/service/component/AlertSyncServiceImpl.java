@@ -7,6 +7,7 @@ import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,10 +66,14 @@ public class AlertSyncServiceImpl {
 
     private AlertResponseDto alertRequest2Response(String method,AlertRequestDto alertRequestDto)throws ExecutionControl.NotImplementedException
     {
-        throw new ExecutionControl.NotImplementedException("아직 구현되지 않음");
+        ArrayList<String> methods=new ArrayList<>();
+        methods.add(method);
+        AlertResponseDto result = new AlertResponseDto(methods,alertRequestDto.getLogType(),alertRequestDto.getLogLevel(),alertRequestDto.getMsg(), LocalDateTime.now());
+        return result;
     }
     private AlertResponseDto alertRequest2Response(List<String> methodList,AlertRequestDto alertRequestDto)throws ExecutionControl.NotImplementedException
     {
-        throw new ExecutionControl.NotImplementedException("아직 구현되지 않음");
+        AlertResponseDto result = new AlertResponseDto(methodList,alertRequestDto.getLogType(),alertRequestDto.getLogLevel(),alertRequestDto.getMsg(), LocalDateTime.now());
+        return result;
     }
 }
