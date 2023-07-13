@@ -1,9 +1,12 @@
 package com.alertmgr.service.component;
 
+import com.alertmgr.database.entity.AlertLogEntity;
+import com.alertmgr.database.repository.AlertLogRepository;
 import com.alertmgr.dto.AlertRequestDto;
 import com.alertmgr.dto.AlertResponseDto;
 import com.alertmgr.service.port.AlertService;
 import jdk.jshell.spi.ExecutionControl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +20,12 @@ public class AlertSyncServiceImpl {
 
     private List<AlertService>[] alertServiceLayer;
     final AlertServiceManager alertServiceManager;
+    final AlertLogRepository alertLogRepository;
     @Autowired
-    public AlertSyncServiceImpl(AlertServiceManager alertServiceManager)
+    public AlertSyncServiceImpl(AlertServiceManager alertServiceManager,AlertLogRepository alertLogRepository)
     {
         this.alertServiceManager = alertServiceManager;
+        this.alertLogRepository=alertLogRepository;
         alertServiceLayer=new List[3];
         //TODO : 이걸 별도의 파일로 관리하도록 하자 yaml 같은거
         alertServiceLayer[0]=new ArrayList<AlertService>();
@@ -61,6 +66,7 @@ public class AlertSyncServiceImpl {
             alertService.sendInfo(alertRequestDto.getMsg());
         else if(alertRequestDto.getLogType().equals("ERROR"))
             alertService.sendError(alertRequestDto.getMsg());
+
         return alertRequest2Response(methodName,alertRequestDto);
     }
 
@@ -69,6 +75,9 @@ public class AlertSyncServiceImpl {
         ArrayList<String> methods=new ArrayList<>();
         methods.add(method);
         AlertResponseDto result = new AlertResponseDto(methods,alertRequestDto.getLogType(),alertRequestDto.getLogLevel(),alertRequestDto.getMsg(), LocalDateTime.now());
+
+        AlertLogEntity alertLog =result.toEntity();
+        alertLogRepository.save(alertLog);
         return result;
     }
     private AlertResponseDto alertRequest2Response(List<String> methodList,AlertRequestDto alertRequestDto)throws ExecutionControl.NotImplementedException
